@@ -76,6 +76,36 @@ pip install Pillow
 python3 Tools/generate_app_icon.py
 ```
 
+## Веб-версия и деплой на Vercel
+
+В папке [`web/`](web/) лежит статический сайт из двух частей:
+
+- `/` — страница приложения (лендинг) с живым демо внутри макета iPhone;
+- `/app/` — работающее веб-демо: те же экраны, что и в iOS-версии
+  (цели, ввод суммы, статистика, настройки), данные хранятся в `localStorage` браузера.
+
+Сборка не нужна: это чистые HTML, CSS и JS без зависимостей.
+
+Локальный просмотр:
+
+```bash
+cd web && python3 -m http.server 8099   # затем http://localhost:8099/
+```
+
+Деплой из терминала (из корня репозитория):
+
+```bash
+npx vercel@latest login
+npx vercel@latest --prod
+```
+
+Либо через интерфейс Vercel: **New Project → Import** репозиторий → **Framework Preset: Other** → Deploy.
+Конфигурация уже в репозитории: корневой `vercel.json` отдаёт папку `web` как статический сайт
+(если в настройках проекта задать **Root Directory = web**, применится `web/vercel.json` — оба варианта рабочие).
+
+Важно: Vercel хостит только веб. Нативное iOS-приложение туда не выкладывается —
+оно собирается в Xcode и уходит в App Store отдельно.
+
 ## Публикация в App Store
 
 Материалы для App Store Connect — в папке [`AppStore/`](AppStore/):

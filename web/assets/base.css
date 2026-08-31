@@ -1,0 +1,230 @@
+/* Общие токены дизайна. Значения совпадают с Theme.swift из iOS-приложения,
+   поэтому веб-демо и нативная версия выглядят одинаково. */
+
+:root {
+  color-scheme: light dark;
+
+  --bg: #f4f1ec;
+  --bg-deep: #ebe6de;
+  --surface: #ffffff;
+  --surface-sunken: #f0ede7;
+  --text: #141518;
+  --text-2: #6b6a67;
+  --text-3: #9b9992;
+  --text-on-accent: #1a1508;
+  --accent: #c28a2e;
+  --accent-soft: #f6e7c8;
+  --positive: #2e9464;
+  --negative: #c0503f;
+  --hairline: #e2ddd3;
+  --shadow: 138, 127, 107;
+
+  --brand: linear-gradient(135deg, #f7d486 0%, #e0a64c 55%, #c77e3a 100%);
+
+  --radius-card: 26px;
+  --radius-control: 18px;
+  --radius-small: 16px;
+  --pad: 20px;
+
+  --font: ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+:root[data-theme="dark"] {
+  --bg: #0b0c10;
+  --bg-deep: #06070a;
+  --surface: #15171e;
+  --surface-sunken: #101219;
+  --text: #f6f5f3;
+  --text-2: #9c9ea8;
+  --text-3: #6c6f7a;
+  --text-on-accent: #120f06;
+  --accent: #f0c070;
+  --accent-soft: #33291a;
+  --positive: #54d19b;
+  --negative: #f08a78;
+  --hairline: #2a2e39;
+  --shadow: 0, 0, 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b0c10;
+    --bg-deep: #06070a;
+    --surface: #15171e;
+    --surface-sunken: #101219;
+    --text: #f6f5f3;
+    --text-2: #9c9ea8;
+    --text-3: #6c6f7a;
+    --text-on-accent: #120f06;
+    --accent: #f0c070;
+    --accent-soft: #33291a;
+    --positive: #54d19b;
+    --negative: #f08a78;
+    --hairline: #2a2e39;
+    --shadow: 0, 0, 0;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+input,
+select {
+  font-family: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+/* Фоновые пятна — веб-версия AuroraBackground. */
+.aurora {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+}
+
+.aurora span {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.22;
+  animation: drift 16s ease-in-out infinite alternate;
+}
+
+.aurora span:nth-child(1) {
+  width: 340px;
+  height: 340px;
+  background: #f9d689;
+  top: -140px;
+  left: -60px;
+}
+
+.aurora span:nth-child(2) {
+  width: 300px;
+  height: 300px;
+  background: #d79a3f;
+  top: 20%;
+  right: -80px;
+  animation-delay: -4s;
+}
+
+.aurora span:nth-child(3) {
+  width: 380px;
+  height: 380px;
+  background: #c28a2e;
+  bottom: -160px;
+  left: 20%;
+  animation-delay: -8s;
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(40px, -30px, 0) scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora span {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+  padding: 18px;
+  box-shadow: 0 12px 22px rgba(var(--shadow), 0.1), 0 1px 3px rgba(var(--shadow), 0.05);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 54px;
+  padding: 0 22px;
+  border-radius: var(--radius-control);
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.18s ease, opacity 0.18s ease;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background: var(--brand);
+  color: var(--text-on-accent);
+  box-shadow: 0 8px 16px rgba(224, 166, 76, 0.35);
+}
+
+.btn-secondary {
+  background: var(--surface-sunken);
+  border: 1px solid var(--hairline);
+  color: var(--text-2);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Копилка — приложение для накоплений</title>
+    <meta
+      name="description"
+      content="Копилка — приложение для целевых накоплений: цели, пополнения, кольца прогресса и статистика. Без регистрации, рекламы и аналитики. Попробуйте веб-демо."
+    />
+    <meta name="theme-color" content="#0b0c10" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f4f1ec" media="(prefers-color-scheme: light)" />
+    <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Копилка — приложение для накоплений" />
+    <meta
+      property="og:description"
+      content="Цели, пополнения, прогресс и статистика. Всё хранится на устройстве: без аккаунтов, рекламы и аналитики."
+    />
+    <meta property="og:image" content="/assets/icon-512.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="stylesheet" href="/assets/base.css" />
+    <link rel="stylesheet" href="/assets/landing.css" />
+  </head>
+  <body>
+    <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+
+    <div class="landing">
+      <nav class="nav">
+        <a class="brand" href="/">
+          <img src="/assets/icon-192.png" alt="" />
+          Копилка
+        </a>
+        <div class="nav-links">
+          <a href="#features">Возможности</a>
+          <a href="#how">Как устроено</a>
+          <a href="#privacy">Приватность</a>
+          <a class="btn btn-primary" href="/app/">Открыть демо</a>
+        </div>
+      </nav>
+
+      <header class="hero">
+        <div>
+          <span class="eyebrow">iOS 17+ · SwiftUI · Скоро в App Store</span>
+          <h1>Цели, к которым <em>приятно возвращаться</em></h1>
+          <p class="lead">
+            Копилка превращает «надо бы накопить» в понятный план: цель с суммой и сроком,
+            кольцо прогресса, нужный темп на неделю и честная история пополнений.
+            Без регистрации, рекламы и аналитики.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="/app/">Попробовать демо</a>
+            <a class="btn btn-secondary" href="#appstore">Как выйдет в App Store</a>
+          </div>
+          <div class="hero-meta">
+            <div><b>6</b> валют</div>
+            <div><b>0</b> строк аналитики</div>
+            <div><b>100%</b> данных на устройстве</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="phone-stage">
+            <div class="phone">
+              <div class="phone-screen">
+                <iframe src="/app/?demo=1" title="Интерактивное демо приложения «Копилка»" loading="lazy"></iframe>
+              </div>
+            </div>
+          </div>
+          <p class="phone-caption">Это живое демо — можно нажимать прямо здесь</p>
+        </div>
+      </header>
+
+      <section class="block" id="features">
+        <div class="block-head">
+          <h2>Что умеет Копилка</h2>
+          <p>
+            Ровно то, что нужно для накоплений, — и ничего лишнего. Никаких подключений к банкам
+            и запросов доступа к счетам: вы сами решаете, что и когда записать.
+          </p>
+        </div>
+
+        <div class="grid">
+          <article class="card feature">
+            <div class="feature-icon" style="background: linear-gradient(135deg, #f9d689, #d79a3f); color: #fff">◎</div>
+            <h3>Цели с характером</h3>
+            <p>Сумма, срок, иконка и цветовая палитра. У каждой цели своё кольцо прогресса и вехи 25 / 50 / 75 / 100 %.</p>
+          </article>
+
+          <article class="card feature">
+            <div class="feature-icon" style="background: linear-gradient(135deg, #8fd6a0, #2e8b6b); color: #fff">＋</div>
+            <h3>Пополнение за пару секунд</h3>
+            <p>Своя клавиатура сумм, быстрые значения и кнопка «До цели», которая вносит ровно недостающее.</p>
+          </article>
+
+          <article class="card feature">
+            <div class="feature-icon" style="background: linear-gradient(135deg, #76c8f0, #3b6fd4); color: #fff">▨</div>
+            <h3>Понятная статистика</h3>
+            <p>График пополнений по месяцам, средний вклад, закрытые цели и серия недель подряд с пополнением.</p>
+          </article>
+
+          <article class="card feature">
+            <div class="feature-icon" style="background: linear-gradient(135deg, #ff9a76, #e05c6e); color: #fff">⚡️</div>
+            <h3>Нужный темп</h3>
+            <p>Приложение считает, сколько откладывать в неделю, чтобы успеть к сроку, и честно предупреждает о просрочке.</p>
+          </article>
+
+          <article class="card feature">
+            <div class="feature-icon" style="background: linear-gradient(135deg, #c9a7f5, #7a55c8); color: #fff">🎉</div>
+            <h3>Момент победы</h3>
+            <p>Закрытая цель — это конфетти и тактильный отклик, а не просто строчка в списке.</p>
+          </article>
+
+          <article class="card feature">
+            <div class="feature-icon" style="background: linear-gradient(135deg, #9aa3b2, #3d4552); color: #fff">🌙</div>
+            <h3>Светлая и тёмная темы</h3>
+            <p>Аккуратная типографика, мягкие тени и живой фон. Анимации уважают «Уменьшение движения».</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="block" id="how">
+        <div class="split">
+          <div>
+            <div class="block-head">
+              <h2>Как это устроено</h2>
+              <p>
+                Нативное приложение на SwiftUI под iOS 17+ и веб-демо на этой странице собраны
+                из одной дизайн-системы: одни и те же цвета, скругления и компоненты.
+              </p>
+            </div>
+            <ul class="checklist">
+              <li><span class="mark">1</span><span><b>Единый источник правды.</b> Состояние приложения живёт в одном месте и сразу сохраняется.</span></li>
+              <li><span class="mark">2</span><span><b>Локальное хранилище.</b> В iOS — JSON-файл в песочнице приложения, в вебе — localStorage браузера.</span></li>
+              <li><span class="mark">3</span><span><b>Никаких зависимостей.</b> Ни сторонних SDK, ни серверов, ни аккаунтов.</span></li>
+              <li><span class="mark">4</span><span><b>Доступность.</b> Динамический шрифт, метки VoiceOver и уважение к настройкам движения.</span></li>
+            </ul>
+          </div>
+
+          <div class="card" style="padding: 26px">
+            <h3 style="margin: 0 0 14px; font-size: 18px">Демо и приложение — одно и то же</h3>
+            <p style="margin: 0 0 18px; color: var(--text-2); font-size: 15px; line-height: 1.55">
+              Веб-версия повторяет экраны iOS-приложения: главный экран с балансом, экран цели
+              с кольцом и историей, ввод суммы и статистику. Данные демо остаются в вашем браузере,
+              их можно удалить одной кнопкой в настройках.
+            </p>
+            <a class="btn btn-primary" href="/app/" style="width: 100%">Открыть демо</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="block" id="privacy">
+        <div class="block-head">
+          <h2>Приватность по умолчанию</h2>
+          <p>
+            Копилка не собирает данные. В приложении нет аналитики, рекламных сетей и трекинга,
+            а значит, в анкете App Privacy стоит честное «Data Not Collected».
+          </p>
+        </div>
+
+        <div class="grid">
+          <article class="card feature">
+            <h3>Без аккаунтов</h3>
+            <p>Ни регистрации, ни входа через соцсети, ни синхронизации с чужими серверами.</p>
+          </article>
+          <article class="card feature">
+            <h3>Без сети</h3>
+            <p>Приложению не нужен интернет: все вычисления происходят на устройстве.</p>
+          </article>
+          <article class="card feature">
+            <h3>Полное удаление</h3>
+            <p>Кнопка «Удалить все данные» стирает цели и историю без следов и резервных копий.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="block" id="appstore">
+        <div class="cta">
+          <img src="/assets/icon-512.png" alt="Иконка приложения «Копилка»" />
+          <h2>Скоро в App Store</h2>
+          <p>
+            Нативная сборка готова: проект Xcode, иконка, privacy-манифест и материалы для
+            App Store Connect лежат в репозитории. Осталось подписать сборку своим Apple ID
+            разработчика и отправить на ревью.
+          </p>
+          <div class="badge-row">
+            <a class="store-badge" href="https://github.com/qquebak-ai/COPILKA" rel="noopener">
+              <span>Исходный код<br /><span class="big">GitHub</span></span>
+            </a>
+            <a class="btn btn-primary" href="/app/">Пока — веб-демо</a>
+          </div>
+        </div>
+      </section>
+
+      <footer class="site-footer">
+        <span>© 2026 Копилка</span>
+        <span class="spacer"></span>
+        <a href="/app/">Демо</a>
+        <a href="https://github.com/qquebak-ai/COPILKA" rel="noopener">GitHub</a>
+      </footer>
+    </div>
+  </body>
+</html>
