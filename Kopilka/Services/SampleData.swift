@@ -1,7 +1,7 @@
 import Foundation
 
-/// Демонстрационные данные: используются в превью Xcode и в пункте
-/// «Загрузить пример» на пустом экране.
+/// Данные только для превью Xcode. В приложении не используются:
+/// пользователь всегда начинает с чистого списка целей.
 enum SampleData {
     private static func daysAgo(_ days: Int) -> Date {
         Calendar.current.date(byAdding: .day, value: -days, to: .now) ?? .now

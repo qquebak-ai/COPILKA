@@ -7,7 +7,7 @@
 (() => {
   "use strict";
 
-  const STORAGE_KEY = "kopilka.state.v1";
+  const STORAGE_KEY = "kopilka.state.v2";
 
   /** crypto.randomUUID есть не везде (например, при открытии файла с диска). */
   const uuid = () =>
@@ -285,11 +285,10 @@
       return `
         <div class="card empty">
           <div class="empty-icon">✨</div>
-          <h2>Здесь появятся ваши цели</h2>
-          <p>Отпуск, техника, подушка безопасности — придумайте цель, назначьте сумму и откладывайте в своём темпе.</p>
+          <h2>Пока нет целей</h2>
+          <p>Создайте первую: название, сумма и, если нужно, срок.</p>
           <div class="stack">
-            <button class="btn btn-primary" data-action="new-goal">Создать первую цель</button>
-            <button class="btn btn-secondary" data-action="load-demo">Посмотреть на примере</button>
+            <button class="btn btn-primary" data-action="new-goal">Создать цель</button>
           </div>
         </div>`;
     }
@@ -344,11 +343,8 @@
       return `
         <div class="card empty">
           <div class="empty-icon">▨</div>
-          <h2>Статистика появится позже</h2>
-          <p>Сделайте первое пополнение — и здесь появятся динамика по месяцам, средний вклад и серия недель.</p>
-          <div class="stack">
-            <button class="btn btn-secondary" data-action="load-demo">Загрузить демо-данные</button>
-          </div>
+          <h2>Пока нечего показать</h2>
+          <p>Статистика появится после первого пополнения.</p>
         </div>`;
     }
 
@@ -451,20 +447,9 @@
         </div>
       </div>
 
-      <div class="card" style="display:flex;flex-direction:column;gap:12px">
-        <button class="btn btn-secondary" data-action="load-demo">Загрузить демо-данные</button>
+      <div class="card" style="display:flex;flex-direction:column;gap:10px">
         <button class="btn btn-secondary" style="color:var(--negative)" data-action="reset">Удалить все данные</button>
-      </div>
-
-      <div class="card">
-        <div class="section-head"><div><h2>О демо</h2></div></div>
-        <p class="setting-note" style="margin-top:10px">
-          Это веб-версия приложения «Копилка» для iOS. Данные хранятся только в вашем браузере
-          (localStorage) и никуда не отправляются: ни аналитики, ни аккаунтов, ни серверов.
-        </p>
-        <p class="setting-note" style="margin-top:10px">
-          <a class="link-row" href="/">← Вернуться на страницу приложения</a>
-        </p>
+        <p class="setting-note">Цели и операции хранятся только в этом браузере.</p>
       </div>`;
   }
 
@@ -860,93 +845,6 @@
     setTimeout(() => element.remove(), 2600);
   }
 
-  // --- Демо-данные -------------------------------------------------------
-
-  function daysAgo(days) {
-    const date = new Date();
-    date.setDate(date.getDate() - days);
-    return date.toISOString();
-  }
-
-  function dateAhead(days) {
-    const date = new Date();
-    date.setDate(date.getDate() + days);
-    return date.toISOString().slice(0, 10);
-  }
-
-  function loadDemo() {
-    state.goals = [
-      {
-        id: uuid(),
-        title: "Отпуск в Японии",
-        target: 420000,
-        icon: "✈️",
-        palette: "ocean",
-        deadline: dateAhead(180),
-        note: "Токио, Киото и Осака весной",
-        createdAt: daysAgo(120),
-        transactions: [
-          { id: uuid(), amount: 40000, kind: "deposit", date: daysAgo(110), note: "Премия" },
-          { id: uuid(), amount: 25000, kind: "deposit", date: daysAgo(82), note: "" },
-          { id: uuid(), amount: 30000, kind: "deposit", date: daysAgo(54), note: "Отложил с зарплаты" },
-          { id: uuid(), amount: 12000, kind: "withdrawal", date: daysAgo(40), note: "Срочный ремонт" },
-          { id: uuid(), amount: 35000, kind: "deposit", date: daysAgo(21), note: "" },
-          { id: uuid(), amount: 18000, kind: "deposit", date: daysAgo(4), note: "" },
-        ],
-      },
-      {
-        id: uuid(),
-        title: "Подушка безопасности",
-        target: 600000,
-        icon: "🩺",
-        palette: "forest",
-        deadline: null,
-        note: "Три месяца привычных расходов",
-        createdAt: daysAgo(240),
-        transactions: [
-          { id: uuid(), amount: 90000, kind: "deposit", date: daysAgo(200), note: "" },
-          { id: uuid(), amount: 60000, kind: "deposit", date: daysAgo(150), note: "" },
-          { id: uuid(), amount: 75000, kind: "deposit", date: daysAgo(96), note: "" },
-          { id: uuid(), amount: 55000, kind: "deposit", date: daysAgo(63), note: "" },
-          { id: uuid(), amount: 48000, kind: "deposit", date: daysAgo(30), note: "" },
-          { id: uuid(), amount: 22000, kind: "deposit", date: daysAgo(9), note: "" },
-        ],
-      },
-      {
-        id: uuid(),
-        title: "MacBook Pro",
-        target: 240000,
-        icon: "💻",
-        palette: "graphite",
-        deadline: dateAhead(45),
-        note: "",
-        createdAt: daysAgo(70),
-        transactions: [
-          { id: uuid(), amount: 60000, kind: "deposit", date: daysAgo(60), note: "" },
-          { id: uuid(), amount: 45000, kind: "deposit", date: daysAgo(32), note: "" },
-          { id: uuid(), amount: 38000, kind: "deposit", date: daysAgo(12), note: "" },
-        ],
-      },
-      {
-        id: uuid(),
-        title: "Новый велосипед",
-        target: 85000,
-        icon: "🚲",
-        palette: "sunset",
-        deadline: null,
-        note: "",
-        createdAt: daysAgo(150),
-        transactions: [
-          { id: uuid(), amount: 35000, kind: "deposit", date: daysAgo(140), note: "" },
-          { id: uuid(), amount: 30000, kind: "deposit", date: daysAgo(100), note: "" },
-          { id: uuid(), amount: 20000, kind: "deposit", date: daysAgo(66), note: "" },
-        ],
-      },
-    ];
-    save();
-    render();
-  }
-
   // --- Рендер и события --------------------------------------------------
 
   function applyTheme() {
@@ -956,6 +854,7 @@
 
   function render() {
     applyTheme();
+
     const screen = document.getElementById("screen");
     const title = document.getElementById("screen-title");
     const headerAction = document.getElementById("header-action");
@@ -983,13 +882,12 @@
 
   const actions = {
     "new-goal": () => openEditor(null),
-    "load-demo": () => loadDemo(),
     reset: () => {
       if (!confirm("Удалить все цели и историю?")) return;
       state = defaultState();
+      activeTab = "goals";
       save();
       render();
-      toast("Данные удалены");
     },
     "open-goal": (element) => openGoalSheet(element.dataset.id),
     "quick-add": (element) => openAmountSheet(element.dataset.id, "deposit"),
@@ -1078,11 +976,5 @@
   document.getElementById("header-action").addEventListener("click", () => openEditor(null));
 
   state = load();
-
-  // На лендинге демо встроено в макет телефона: показываем сразу заполненный экран.
-  if (!state.goals.length && new URLSearchParams(location.search).has("demo")) {
-    loadDemo();
-  } else {
-    render();
-  }
+  render();
 })();

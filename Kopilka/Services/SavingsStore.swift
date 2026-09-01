@@ -155,11 +155,6 @@ final class SavingsStore {
         persist()
     }
 
-    func loadDemoData() {
-        goals = SampleData.goals
-        persist()
-    }
-
     // MARK: - Сохранение
 
     private func persist() {

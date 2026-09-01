@@ -147,20 +147,14 @@ struct HomeView: View {
         VStack(spacing: 18) {
             EmptyStateView(
                 symbolName: "sparkles",
-                title: "Здесь появятся ваши цели",
-                message: "Отпуск, техника, подушка безопасности — придумайте цель, назначьте сумму и откладывайте в своём темпе."
+                title: "Пока нет целей",
+                message: "Создайте первую: название, сумма и, если нужно, срок."
             ) {
-                VStack(spacing: 12) {
-                    Button("Создать первую цель") {
-                        isCreatingGoal = true
-                    }
-                    .buttonStyle(PrimaryButtonStyle())
-
-                    Button("Посмотреть на примере") {
-                        store.loadDemoData()
-                    }
-                    .buttonStyle(SecondaryButtonStyle(tint: Theme.textSecondary))
+                Button("Создать цель") {
+                    isCreatingGoal = true
                 }
+                .buttonStyle(PrimaryButtonStyle())
+                .frame(maxWidth: 320)
             }
             .cardStyle(padding: 20)
         }

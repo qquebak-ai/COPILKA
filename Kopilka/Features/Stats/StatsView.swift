@@ -20,8 +20,8 @@ struct StatsView: View {
                         if store.allTransactions.isEmpty {
                             EmptyStateView(
                                 symbolName: "chart.bar.xaxis",
-                                title: "Статистика появится позже",
-                                message: "Сделайте первое пополнение — и здесь появятся динамика по месяцам, средний вклад и серия недель."
+                                title: "Пока нечего показать",
+                                message: "Статистика появится после первого пополнения."
                             )
                             .cardStyle(padding: 20)
                             .padding(.top, 30)

@@ -203,21 +203,12 @@ struct SettingsView: View {
     }
 
     private var dataCard: some View {
-        VStack(spacing: 12) {
-            Button {
-                store.loadDemoData()
-            } label: {
-                Text("Загрузить демо-данные")
-            }
-            .buttonStyle(SecondaryButtonStyle(tint: Theme.textSecondary))
-
-            Button {
-                isConfirmingReset = true
-            } label: {
-                Text("Удалить все данные")
-            }
-            .buttonStyle(SecondaryButtonStyle(tint: Theme.negative))
+        Button {
+            isConfirmingReset = true
+        } label: {
+            Text("Удалить все данные")
         }
+        .buttonStyle(SecondaryButtonStyle(tint: Theme.negative))
     }
 
     private var aboutCard: some View {
