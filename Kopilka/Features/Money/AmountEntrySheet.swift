@@ -214,8 +214,10 @@ struct AmountEntrySheet: View {
 enum QuickAmounts {
     static func values(for currency: CurrencyOption) -> [Money] {
         switch currency.code {
-        case "RUB", "KZT": return [500, 1_000, 5_000]
-        case "USD", "EUR", "AED", "GEL": return [10, 50, 100]
+        case "RUB": return [500, 1_000, 5_000]
+        case "KZT": return [1_000, 5_000, 10_000]
+        case "UAH", "TRY": return [100, 500, 1_000]
+        case "AED": return [50, 100, 500]
         default: return [10, 50, 100]
         }
     }

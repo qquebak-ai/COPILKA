@@ -36,7 +36,7 @@ STATISTICS WITHOUT SPREADSHEETS
 A PLEASURE TO USE
 • Careful, uncluttered interface with light and dark themes
 • Confetti and haptics when a goal is reached
-• Six currencies: ₽, $, €, ₸, د.إ, ₾
+• Ten currencies: ₽, $, €, ₸, ₴, Br, ₾, ₺, د.إ, £
 • Optional weekly reminder
 
 YOUR DATA IS YOURS
@@ -52,7 +52,7 @@ savings,goal,money,budget,finance,tracker,saving plan,piggy bank,fund,vacation,e
 
 ## What's New (version 1.0)
 The first release of Kopilka: goals with progress rings, fast deposits,
-monthly statistics, dark theme and six currencies. Fully offline, no sign-up.
+monthly statistics, dark theme and ten currencies. Fully offline, no sign-up.
 
 ## Categories
 - Primary: Finance

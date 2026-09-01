@@ -20,11 +20,14 @@ extension Money {
 
 extension Money {
     /// «1 250 ₽» — основной формат для карточек и заголовков.
+    ///
+    /// Число форматируем системой, а символ подставляем свой: для части валют
+    /// (тенге, лира, дирхам) система печатает код — «1 250 KZT» вместо «1 250 ₸».
     func formatted(currency: CurrencyOption, showsFraction: Bool = false) -> String {
-        let style = Decimal.FormatStyle.Currency(code: currency.code)
+        let style = Decimal.FormatStyle.number
             .precision(.fractionLength(showsFraction ? 2 : 0))
             .rounded(rule: .down)
-        return self.formatted(style)
+        return self.formatted(style) + "\u{00A0}" + currency.symbol
     }
 
     /// «+1 250 ₽» / «−1 250 ₽» для истории операций.

@@ -86,12 +86,12 @@ struct OnboardingView: View {
         @Bindable var store = store
 
         return VStack(spacing: 10) {
-            Text("Валюта")
+            Text("В какой валюте копим?")
                 .font(.captionSmall)
                 .foregroundStyle(Theme.textTertiary)
 
-            HStack(spacing: 8) {
-                ForEach(CurrencyOption.all.prefix(4)) { option in
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 5), spacing: 8) {
+                ForEach(CurrencyOption.all) { option in
                     let isSelected = store.settings.currencyCode == option.code
                     Button {
                         HapticsService.shared.play(.selection, enabled: store.settings.hapticsEnabled)
@@ -100,9 +100,12 @@ struct OnboardingView: View {
                         }
                     } label: {
                         Text(option.symbol)
-                            .font(.rounded(18, weight: .bold))
+                            .font(.rounded(17, weight: .bold))
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.6)
                             .foregroundStyle(isSelected ? Theme.textOnAccent : Theme.textSecondary)
-                            .frame(width: 52, height: 44)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 44)
                             .background {
                                 RoundedRectangle(cornerRadius: 14, style: .continuous)
                                     .fill(isSelected ? AnyShapeStyle(Theme.brandGradient) : AnyShapeStyle(Theme.surface))
@@ -112,6 +115,12 @@ struct OnboardingView: View {
                     .accessibilityLabel(option.title)
                 }
             }
+            .padding(.horizontal, Metrics.screenPadding)
+
+            Text(store.settings.currency.title)
+                .font(.caption)
+                .foregroundStyle(Theme.textSecondary)
+                .animation(.snappy(duration: 0.2), value: store.settings.currencyCode)
         }
         .padding(.top, 4)
     }

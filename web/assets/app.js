@@ -15,14 +15,35 @@
       ? crypto.randomUUID()
       : `id-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
 
+  /** Валюты приложения. `quick` — суммы на кнопках быстрого пополнения. */
   const CURRENCIES = [
     { code: "RUB", symbol: "₽", title: "Российский рубль", quick: [500, 1000, 5000] },
     { code: "USD", symbol: "$", title: "Доллар США", quick: [10, 50, 100] },
     { code: "EUR", symbol: "€", title: "Евро", quick: [10, 50, 100] },
-    { code: "KZT", symbol: "₸", title: "Тенге", quick: [500, 1000, 5000] },
-    { code: "AED", symbol: "د.إ", title: "Дирхам ОАЭ", quick: [10, 50, 100] },
-    { code: "GEL", symbol: "₾", title: "Лари", quick: [10, 50, 100] },
+    { code: "KZT", symbol: "₸", title: "Казахстанский тенге", quick: [1000, 5000, 10000] },
+    { code: "UAH", symbol: "₴", title: "Украинская гривна", quick: [100, 500, 1000] },
+    { code: "BYN", symbol: "Br", title: "Белорусский рубль", quick: [10, 50, 100] },
+    { code: "GEL", symbol: "₾", title: "Грузинский лари", quick: [10, 50, 100] },
+    { code: "TRY", symbol: "₺", title: "Турецкая лира", quick: [100, 500, 1000] },
+    { code: "AED", symbol: "د.إ", title: "Дирхам ОАЭ", quick: [50, 100, 500] },
+    { code: "GBP", symbol: "£", title: "Фунт стерлингов", quick: [10, 50, 100] },
   ];
+
+  /** Подсказка по языку браузера — какую валюту предложить первой. */
+  function guessCurrency() {
+    const locale = (navigator.language || "ru-RU").toLowerCase();
+    const byRegion = {
+      ru: "RUB", ua: "UAH", by: "BYN", kz: "KZT", ge: "GEL",
+      tr: "TRY", ae: "AED", gb: "GBP", us: "USD",
+    };
+    const byLanguage = {
+      ru: "RUB", uk: "UAH", be: "BYN", kk: "KZT", ka: "GEL", tr: "TRY",
+      en: "USD", de: "EUR", fr: "EUR", es: "EUR", it: "EUR", pt: "EUR", nl: "EUR",
+    };
+    const [language, region] = locale.split("-");
+    const code = byRegion[region] || byLanguage[language];
+    return CURRENCIES.some((item) => item.code === code) ? code : "RUB";
+  }
 
   const PALETTES = {
     gold: { title: "Золото", colors: ["#f9d689", "#d79a3f"] },
@@ -46,7 +67,7 @@
 
   const defaultState = () => ({
     goals: [],
-    settings: { currency: "RUB", theme: "system" },
+    settings: { currency: guessCurrency(), theme: "system", currencyChosen: false },
   });
 
   let state = defaultState();
@@ -81,15 +102,18 @@
 
   const currency = () => CURRENCIES.find((item) => item.code === state.settings.currency) || CURRENCIES[0];
 
+  /**
+   * Сумму печатаем сами: Intl для части валют подставляет код вместо символа
+   * («600 000 KZT»), а нам нужен один и тот же вид для всех — «600 000 ₸».
+   */
   function formatMoney(amount, options = {}) {
     const value = Number(amount) || 0;
     try {
-      return new Intl.NumberFormat("ru-RU", {
-        style: "currency",
-        currency: currency().code,
+      const number = new Intl.NumberFormat("ru-RU", {
         maximumFractionDigits: options.fraction ? 2 : 0,
         minimumFractionDigits: 0,
       }).format(value);
+      return `${number} ${currency().symbol}`;
     } catch (error) {
       return `${Math.round(value)} ${currency().symbol}`;
     }
@@ -436,12 +460,14 @@
 
       <div class="card">
         <div class="section-head"><div><h2>Валюта</h2><p>Меняет только отображение сумм</p></div></div>
-        <div class="option-row options-6" style="margin-top:12px">
+        <div class="currency-grid" style="margin-top:12px">
           ${CURRENCIES.map(
             (item) => `
-            <button class="option ${state.settings.currency === item.code ? "is-active" : ""}" data-action="set-currency" data-value="${item.code}"
-              title="${item.title}">
-              <span class="option-symbol">${item.symbol}</span>${item.code}
+            <button class="currency-option ${state.settings.currency === item.code ? "is-active" : ""}"
+              data-action="set-currency" data-value="${item.code}">
+              <span class="currency-symbol">${item.symbol}</span>
+              <span class="currency-code">${item.code}</span>
+              <span class="currency-title">${item.title}</span>
             </button>`,
           ).join("")}
         </div>
@@ -845,6 +871,31 @@
     setTimeout(() => element.remove(), 2600);
   }
 
+  // --- Первый запуск: выбор валюты ---------------------------------------
+
+  function renderCurrencySetup() {
+    return `
+      <div class="card setup">
+        <div class="empty-icon">💱</div>
+        <h2>В какой валюте копим?</h2>
+        <p>Влияет только на то, как показываются суммы. Поменять можно в любой момент в настройках.</p>
+
+        <div class="currency-grid">
+          ${CURRENCIES.map(
+            (item) => `
+            <button class="currency-option ${state.settings.currency === item.code ? "is-active" : ""}"
+              data-action="setup-currency" data-value="${item.code}">
+              <span class="currency-symbol">${item.symbol}</span>
+              <span class="currency-code">${item.code}</span>
+              <span class="currency-title">${item.title}</span>
+            </button>`,
+          ).join("")}
+        </div>
+
+        <button class="btn btn-primary" data-action="setup-done">Продолжить</button>
+      </div>`;
+  }
+
   // --- Рендер и события --------------------------------------------------
 
   function applyTheme() {
@@ -858,6 +909,15 @@
     const screen = document.getElementById("screen");
     const title = document.getElementById("screen-title");
     const headerAction = document.getElementById("header-action");
+
+    if (!state.settings.currencyChosen) {
+      document.body.classList.add("is-setup");
+      title.textContent = "Копилка";
+      headerAction.style.display = "none";
+      screen.innerHTML = renderCurrencySetup();
+      return;
+    }
+    document.body.classList.remove("is-setup");
 
     if (activeTab === "goals") {
       title.textContent = "Копилка";
@@ -930,6 +990,16 @@
       goal.transactions = goal.transactions.filter((item) => item.id !== element.dataset.tx);
       save();
       openGoalSheet(goal.id);
+      render();
+    },
+    "setup-currency": (element) => {
+      state.settings.currency = element.dataset.value;
+      save();
+      render();
+    },
+    "setup-done": () => {
+      state.settings.currencyChosen = true;
+      save();
       render();
     },
     "set-theme": (element) => {
